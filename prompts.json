@@ -1,0 +1,7 @@
+[
+    {
+        "config_name":"gpt-3.5-turbo",
+        "prompt_template": "{movie_info}\n 请找到对应上面信息的url，对应于https://www.wikidata.org/wiki/，",
+        "input_variables":["movie_info"]
+    }
+]
