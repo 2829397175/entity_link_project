@@ -25,40 +25,63 @@ def writeinfo(data_dir,info):
 
 def readjsonl(data_dir):
     data = []
-    with open(data_dir, 'r') as file:
+    with open(data_dir, 'r', encoding='utf-8') as file:
         for line in file:
             data.append(json.loads(line))
     return data
 
 def get_info_description(info):
     filtered_ks =["id","gold_id","start","end"]
-    infos = [f"{k}:{v}" if k not in filtered_ks else "" for k,v in info.items() ]
+
+    start = info['start']
+    end = info['end']
+    info['text'] = info['text'][:start] + '**' + info['text'][start:end] + '**' + info['text'][end:]
+
+    k_dict = {
+        'text': '上下文',
+        'mention': '实体',
+        'source': '来源',
+        'domain': '领域'
+    }
+
+    infos = [f"{k_dict[k]}:{v}" if k not in filtered_ks else "" for k,v in info.items()]
+    infos = [kv for kv in infos if kv]
+
     return "\n".join(infos)
     
 def get_dataset_res(config_name,
                     prompt_model):
-    test_dataset = readjsonl("entity_linking_project/zero-shot.jsonl")
+    test_dataset = readjsonl("zero-shot.jsonl")
     test_ids = []
     
-    sys_msg = Msg("system", "You're a helpful assistant.", role="system")
+    sys_msg = Msg("system", "你是一个中文实体链接的代理，你需要将上下文中的实体与知识库中的相应实体相对应。", role="system")
     for entity_info in test_dataset:
         entity_info_nlp = get_info_description(entity_info)
+
         model = load_model_by_config_name(config_name)
         prompt_template = prompt_model["prompt_template"]
         input_variables = prompt_model["input_variables"]
-        inputs ={
+
+
+        inputs = {
             k:entity_info_nlp for k in input_variables
         }
-        
+
         prompt = prompt_template.format_map(inputs)
+
+        print(prompt)
         gold_id = None
-        prompts =[sys_msg,Msg("user",prompt,"user")]
+        prompts = [sys_msg,Msg("user",prompt,"user")]
         # prepare prompt
         prompt = model.format(
             *prompts
         )
+
+
         response = model(prompt)
         response = response.text
+
+        print(response)
         regex = r"Q(\d+)"
         
         try:
@@ -70,23 +93,13 @@ def get_dataset_res(config_name,
                 match = re.search(regex,response).group(1)
                 gold_id = f"NIR_{match}"
             except: pass
-        # except Exception as e:
-        #     pass
         
-        test_ids.append(gold_id) 
-        
-        
-        # agent = ReActAgent(
-        # name="assistant",
-        # model_config_name=config_name,
-        # tools=[],
-        # sys_prompt = prompt,
-        # verbose=True, # set verbose to True to show the reasoning process
-        # )
-        # agent(entity_info_nlp)
-    writeinfo("entity_linking_project/test_res.json",test_ids)
-        
-    
+        test_ids.append(gold_id)
+
+        print(gold_id)
+        break
+
+    writeinfo("test_res.json", test_ids)
     
 prompts = readinfo("prompts.json")
 
@@ -96,9 +109,5 @@ for prompt in prompts:
     prompts_map[prompt["config_name"]] = prompt
 
 for config_name in _MODEL_CONFIGS.keys():
-    
-    
-    get_dataset_res(config_name,
-                    prompts_map[config_name])
 
-# for config_name in 
+    get_dataset_res(config_name, prompts_map[config_name])
