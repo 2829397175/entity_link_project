@@ -1,7 +1,7 @@
 [
     {
         "config_name":"gpt-3.5-turbo",
-        "prompt_template": "{movie_info}\n 请找到对应上面信息的url，对应于https://www.wikidata.org/wiki/，",
+        "prompt_template": "{movie_info}\n你的任务是给出实体在 Wikidata 的对应 QID ，Wikidata 的 url 为 https://www.wikidata.org/wiki/，实体在上下文中用**标注。",
         "input_variables":["movie_info"]
     },
     {
