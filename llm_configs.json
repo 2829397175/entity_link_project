@@ -11,5 +11,19 @@
         "generate_args": {
             "temperature": 0.7
         }
+    },
+    {
+        "config_name": "gpt-4-turbo",            
+        "model_type": "openai",
+        "model_name": "gpt-4-turbo",  
+        "api_key": "sk-cIrswbIqa0Josai1263f2aA963A94d7eA224B843BaBb4dE4",
+        "client_args":{
+            "base_url":"https://api.aigcbest.top/v1"
+        },
+        "base_url":"https://api.aigcbest.top/v1",
+        "generate_args": {
+            "temperature": 0.7,
+            "max_tokens":100
+        }
     }
 ]                      

@@ -9,7 +9,7 @@ import os
 import re
 
 from agentscope.message import Msg
-
+from tqdm import tqdm
 def readinfo(data_dir):
     assert os.path.exists(data_dir),"no such file path: {}".format(data_dir)
     with open(data_dir,'r',encoding = 'utf-8') as f:
@@ -38,12 +38,17 @@ def get_info_description(info):
 def get_dataset_res(config_name,
                     prompt_model):
     test_dataset = readjsonl("entity_linking_project/zero-shot.jsonl")
-    test_ids = []
+    try:
+        test_ids = readinfo(f"entity_linking_project/test_res_{config_name}.json")
+    except:
+        test_ids =[]
+    tested_len = len(test_ids)
+    test_dataset = test_dataset[tested_len:]
     
     sys_msg = Msg("system", "You're a helpful assistant.", role="system")
-    for entity_info in test_dataset:
+    model = load_model_by_config_name(config_name)
+    for idx,entity_info in tqdm(enumerate(test_dataset)):
         entity_info_nlp = get_info_description(entity_info)
-        model = load_model_by_config_name(config_name)
         prompt_template = prompt_model["prompt_template"]
         input_variables = prompt_model["input_variables"]
         inputs ={
@@ -74,7 +79,8 @@ def get_dataset_res(config_name,
         #     pass
         
         test_ids.append(gold_id) 
-        
+        if idx%100 ==0:
+            writeinfo(f"entity_linking_project/test_res_{config_name}.json",test_ids)
         
         # agent = ReActAgent(
         # name="assistant",
@@ -84,7 +90,7 @@ def get_dataset_res(config_name,
         # verbose=True, # set verbose to True to show the reasoning process
         # )
         # agent(entity_info_nlp)
-    writeinfo("entity_linking_project/test_res.json",test_ids)
+    writeinfo(f"entity_linking_project/test_res_{config_name}.json",test_ids)
         
     
     
@@ -95,9 +101,10 @@ prompts_map = {}
 for prompt in prompts:
     prompts_map[prompt["config_name"]] = prompt
 
-for config_name in _MODEL_CONFIGS.keys():
-    
-    
+config_keys = list(_MODEL_CONFIGS.keys())
+config_keys = ["gpt-4-turbo"]
+
+for config_name in config_keys:
     get_dataset_res(config_name,
                     prompts_map[config_name])
 
