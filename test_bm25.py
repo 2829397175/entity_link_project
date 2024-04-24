@@ -7,6 +7,26 @@ import json
 from utils import *
 from tqdm import tqdm
 
+class CorpusParser:
+
+	def __init__(self, filename):
+		self.filename = filename
+		self.regex = re.compile('^#\s*\d+')
+		self.corpus = dict()
+
+	def parse(self):
+		with open(self.filename) as f:
+			s = ''.join(f.readlines())
+		blobs = s.split('#')[1:]
+		for x in blobs:
+			text = x.split()
+			docid = text.pop(0)
+			self.corpus[docid] = text
+
+	def get_corpus(self):
+		return self.corpus
+
+
 def get_result(response):
     regex = r"Q(\d+)"
     gold_id = None
@@ -21,24 +41,25 @@ def get_result(response):
         except: pass
     return gold_id
 
+
+def test_get_corpus():
+    from BM25.src.parse import CorpusParser
+    
+
 def link_entities(text, topk=5):
     # 初始化 spaCy 英文模型
     nlp = spacy.load("zh_core_web_sm")
-    proxies = {
-        
-    }
-    # 初始化 Wikipedia API
-    headers ={"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'}
-    wiki_wiki = Wikipedia('en',headers=headers)
-
+    
+    
     # 使用 spaCy 进行实体识别
     doc = nlp(text)
 
     # 存储实体及其链接结果
     entities_linked = []
     ents = doc.ents
-    if len(ents)>topk:
-        ents = ents[:topk]
+    
+    
+    
     for ent in ents:
         # 使用 Wikipedia API 查询实体
         page = wiki_wiki.page(ent.text)
@@ -97,7 +118,7 @@ def get_sort_entities(entities,query):
 
 
 test_dataset = readjsonl("entity_linking_project/zero-shot.jsonl")
-test_ids = readinfo("entity_linking_project/test_res_spacy.json")
+test_ids = readinfo("entity_linking_project/test_res_bm25.json")
 
 test_dataset = test_dataset[len(test_ids):]
 try:
@@ -107,7 +128,7 @@ try:
         linked_entities = link_entities(text)
         test_ids.append(linked_entities)
         if idx%100 ==0:
-                writeinfo("entity_linking_project/test_res_spacy.json",test_ids)
+                writeinfo("entity_linking_project/test_res_bm25.json",test_ids)
 except:
     pass
-writeinfo("entity_linking_project/test_res_spacy.json",test_ids)
+writeinfo("entity_linking_project/test_res_bm25.json",test_ids)

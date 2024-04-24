@@ -12,6 +12,16 @@
             "console": "integratedTerminal",
             "justMyCode": false        
         
+        },
+        {
+            "name": "debug BM25",
+            "type": "debugpy-old",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/BM25/src",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false        
+        
         }
     ]
 }
