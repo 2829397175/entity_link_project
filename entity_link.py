@@ -61,32 +61,29 @@ def link_entities(text, topk=5):
             })
         else:
             # 如果没有对应的页面，记录未找到
-            entities_linked.append({'entity': ent.text, 'gold_id': None})
-    entities_linked = get_sort_entities(entities_linked,text)
+            entities_linked.append({'entity': ent.text, 'message': 'No matching page found on Wikipedia'})
+
     return entities_linked
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-def get_sort_entities(entities,query):
-    entities = list(filter(lambda x:x["gold_id"] is not None, entities))
-    if len(entities) ==0:
-        return {}
+def rank_entities(entities:list,
+                  query:str):
+    candidates = [entity.get('entity')+"\n" + entity.get('summary') for entity in entities]
     
-    from sklearn.feature_extraction.text import TfidfVectorizer
-    from sklearn.metrics.pairwise import cosine_similarity
-
-    # 示例数据
-    text = query
-    candidates = {entity['gold_id']: entity['summary'] for entity in entities}
-    # 创建 TF-IDF 模型
     tfidf = TfidfVectorizer()
-    tfidf_matrix = tfidf.fit_transform([text] + list(candidates.values()))
+    tfidf_matrix = tfidf.fit_transform([query] + list(candidates))
 
     # 计算余弦相似度
     cosine_sim = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:])
 
     # 输出每个候选实体的相似度分数
-    entity_scores = {entity: score for entity, score in zip(candidates, cosine_sim[0])}
-    sorted_entities = dict(sorted(entity_scores.items(), key=lambda item: item[1], reverse=True))
+    entity_scores = {entity_info[0]: {"score":entity_info[1],"idx":idx} 
+                     for idx, entity_info in enumerate(zip(candidates, cosine_sim[0]))}
+    
+    sorted_entities = dict(sorted(entity_scores.items(), key=lambda item: item[1]["score"], 
+                                  reverse=True))
 
     return sorted_entities
 

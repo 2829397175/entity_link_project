@@ -42,14 +42,10 @@ def get_result(response):
     return gold_id
 
 
-def test_get_corpus():
-    from BM25.src.parse import CorpusParser
-    
-
 def link_entities(text, topk=5):
     # 初始化 spaCy 英文模型
     nlp = spacy.load("zh_core_web_sm")
-    
+    corpus = CorpusParser("")    
     
     # 使用 spaCy 进行实体识别
     doc = nlp(text)

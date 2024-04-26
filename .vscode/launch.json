@@ -22,6 +22,24 @@
             "console": "integratedTerminal",
             "justMyCode": false        
         
+        },
+        {
+            "name": "debug BM25",
+            "type": "debugpy-old",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "--pretrained_model","bert-base",
+                "--dataset_path","/data/jiarui_ji/entity_link/entity_linking_project",
+                "--max_cand_len","40",
+                "--max_seq_len","128",
+                "--do_test",
+                "--test_mode","test",
+                "--data_parallel",
+                "--eval_batch_size","16",
+                "--accumulate_score"
+            ]
         }
     ]
 }

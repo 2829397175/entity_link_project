@@ -2,3 +2,13 @@
 knowledge_base
 runs
 en_core_web_sm-3.7.1.tar.gz
+BM25
+BLINK
+MuVER/.vscode
+*.bin
+test_candidates.json
+MuVER/bert-base-chinese
+MuVER/zeshel
+MuVER/entity_0.pt
+MuVER/entity_1.pt
+entity_linking_project/
