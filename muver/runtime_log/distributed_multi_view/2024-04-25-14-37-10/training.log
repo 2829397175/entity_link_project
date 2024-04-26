@@ -1,0 +1,5 @@
+2024-04-25 14:37:17,138 - INFO - root -   Optimization steps = 2343,  Warmup steps = 234
+2024-04-25 14:39:18,348 - INFO - root -   Step 50: Average Loss = 18.946432800292968
+2024-04-25 14:41:56,432 - INFO - root -   Step 100: Average Loss = 3.526349839710054
+2024-04-25 14:44:47,307 - INFO - root -   Step 150: Average Loss = 1.206214108467102
+2024-04-25 14:47:34,247 - INFO - root -   Step 200: Average Loss = 0.501069608011416

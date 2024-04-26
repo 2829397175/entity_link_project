@@ -1,0 +1,17 @@
+2024-04-25 15:21:44,834 - INFO - root -   Optimization steps = 2343,  Warmup steps = 234
+2024-04-25 15:23:44,702 - INFO - root -   Step 50: Average Loss = 18.946432800292968
+2024-04-25 15:26:20,369 - INFO - root -   Step 100: Average Loss = 3.526349839710054
+2024-04-25 15:29:08,799 - INFO - root -   Step 150: Average Loss = 1.206214108467102
+2024-04-25 15:31:54,977 - INFO - root -   Step 200: Average Loss = 0.501069608011416
+2024-04-25 15:34:42,575 - INFO - root -   Step 250: Average Loss = 0.33709231362893033
+2024-04-25 15:37:32,100 - INFO - root -   Step 300: Average Loss = 0.34122470259666443
+2024-04-25 15:40:16,733 - INFO - root -   Step 350: Average Loss = 0.2973810116596082
+2024-04-25 15:43:02,426 - INFO - root -   Step 400: Average Loss = 0.4031893402338028
+2024-04-25 15:45:53,901 - INFO - root -   Step 450: Average Loss = 0.2601754481345415
+2024-04-25 15:48:39,927 - INFO - root -   Step 500: Average Loss = 0.22984975748337233
+2024-04-25 15:51:30,012 - INFO - root -   Step 550: Average Loss = 0.24150122657418252
+2024-04-25 15:54:17,992 - INFO - root -   Step 600: Average Loss = 0.21987537548263023
+2024-04-25 15:57:04,126 - INFO - root -   Step 650: Average Loss = 0.20797513011429045
+2024-04-25 15:59:53,145 - INFO - root -   Step 700: Average Loss = 0.22071046143770218
+2024-04-25 16:02:39,859 - INFO - root -   Step 750: Average Loss = 0.30837081582882464
+2024-04-25 16:05:27,581 - INFO - root -   Step 800: Average Loss = 0.1887872710824013

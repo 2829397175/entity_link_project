@@ -1,0 +1,24 @@
+2024-04-25 21:13:45,520 - INFO - root -   Optimization steps = 7031,  Warmup steps = 703
+2024-04-25 21:15:50,314 - INFO - root -   Step 50: Average Loss = 79.7519709777832
+2024-04-25 21:18:35,450 - INFO - root -   Step 100: Average Loss = 20.394215927124023
+2024-04-25 21:21:28,439 - INFO - root -   Step 150: Average Loss = 9.405275316238404
+2024-04-25 21:24:24,192 - INFO - root -   Step 200: Average Loss = 5.939267177581787
+2024-04-25 21:27:17,835 - INFO - root -   Step 250: Average Loss = 3.224382177988688
+2024-04-25 21:30:13,291 - INFO - root -   Step 300: Average Loss = 2.8200964307785035
+2024-04-25 21:33:06,556 - INFO - root -   Step 350: Average Loss = 2.4495836329460143
+2024-04-25 21:36:00,233 - INFO - root -   Step 400: Average Loss = 2.3215610337257386
+2024-04-25 21:38:50,036 - INFO - root -   Step 450: Average Loss = 2.307063398361206
+2024-04-25 21:41:49,444 - INFO - root -   Step 500: Average Loss = 2.2485209266344706
+2024-04-25 21:44:55,940 - INFO - root -   Step 550: Average Loss = 2.222212564945221
+2024-04-25 21:47:48,826 - INFO - root -   Step 600: Average Loss = 2.2030720615386965
+2024-04-25 21:50:41,578 - INFO - root -   Step 650: Average Loss = 2.236914429664612
+2024-04-25 21:53:34,092 - INFO - root -   Step 700: Average Loss = 2.167069787979126
+2024-04-25 21:56:25,558 - INFO - root -   Step 750: Average Loss = 2.1360594113667806
+2024-04-25 21:59:15,864 - INFO - root -   Step 800: Average Loss = 2.1877229142189027
+2024-04-25 22:02:06,882 - INFO - root -   Step 850: Average Loss = 2.2231468558311462
+2024-04-25 22:04:58,026 - INFO - root -   Step 900: Average Loss = 2.1631851172447205
+2024-04-25 22:07:45,014 - INFO - root -   Step 950: Average Loss = 2.027434694766998
+2024-04-25 22:10:30,583 - INFO - root -   Step 1000: Average Loss = 2.179080488681793
+2024-04-25 22:13:16,801 - INFO - root -   Step 1050: Average Loss = 2.1784310817718504
+2024-04-25 22:16:01,108 - INFO - root -   Step 1100: Average Loss = 2.159018416404724
+2024-04-25 22:18:46,489 - INFO - root -   Step 1150: Average Loss = 2.08188511133194
